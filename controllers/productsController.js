@@ -168,6 +168,8 @@ const getProducts = async (req, res) => {
 
     coords = { latitude: 1, longitude: 1 };
 
+    console.log(chromium.path);
+
     const browser = await puppeteer.launch({
       headless: false,
       // executablePath: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
