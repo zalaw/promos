@@ -1,8 +1,5 @@
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
-const geoip = require("geoip-lite");
-const { getRequestIpAddress } = require("../helpers/getRequestIpAddress");
-const IP = require("ip");
 
 puppeteer.use(StealthPlugin());
 
