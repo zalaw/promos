@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body:has(.app.error) {
+  background-color: #ce3e57;
+}
+
+.input-length {
+  font-weight: bold;
+}
+
+body:has(.app.error) .input-length,
+body:has(.app.empty) .input-length,
+body:has(.app.good) .input-length {
+  color: white;
+}
+
+body:has(.app.empty) {
+  background-color: #ff974e;
+}
+
+body:has(.app.good) {
+  background-color: #3fb487;
+}
+
+.app {
+  width: 100%;
+  margin: 0 auto;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  min-height: 100vh;
+  transition: 0.2s all ease-in-out;
+}
+
+.input-main-container {
+  max-width: 50rem;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.input-icons-container {
+  position: absolute;
+  right: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+  color: gray;
+}
+
+.input-icon:hover {
+  filter: brightness(0.85);
+  color: black;
+}
+
+.input-container input {
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  width: 100%;
+  padding: 1rem 6rem 1rem 1.5rem;
+  border: none;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.products-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+
+.loading-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.date-container {
+  font-weight: bold;
+}
+
+.product-container {
+  background-color: white;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.babajee {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.product-container img {
+  width: 100%;
+  display: block;
+}
+
+.name-container {
+  font-weight: bold;
+}
+
+.name {
+  font-size: 1.25em;
+}
+
+.extra {
+  font-size: 0.85em;
+  color: gray;
+  white-space: nowrap;
+}
+
+.price-container {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.new-price {
+  font-size: 1.5em;
+  color: #3fb487;
+}
+
+.old-price {
+  font-size: 1em;
+  text-decoration: line-through;
+  color: gray;
+}
+
+.loader {
+  height: 400px;
+  display: block;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  box-sizing: border-box;
+  width: 100%;
+}
+.loader::after {
+  content: "";
+  width: calc(100% - 30px);
+  height: calc(100% - 15px);
+  top: 15px;
+  left: 15px;
+  position: absolute;
+  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+    linear-gradient(#ddd 100px, transparent 0), linear-gradient(#ddd 16px, transparent 0),
+    linear-gradient(#ddd 50px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 75px 175px, 100% 100px, 100% 16px, 100% 30px;
+  background-position: -185px 0, center 0, center 115px, center 142px;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite;
+}
+
+@keyframes animloader {
+  to {
+    background-position: 185px 0, center 0, center 115px, center 142px;
+  }
+}
+
+.container h1 {
+  box-shadow: 0 0 0 100vmax #3fb487;
+  clip-path: inset(0 -100vmax);
+  background-color: #3fb487;
+  position: sticky;
+  top: 0;
+  padding: 1rem 0;
+  color: white;
+}
+
+.go-to-top {
+  width: 64px;
+  height: 64px;
+  background-color: orange;
+  position: fixed;
+  bottom: 1rem;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+  right: -100%;
+}
+
+.button-visible {
+  right: 1rem !important;
+}
+
+.welcome {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.welcome-stores {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.welcome-stores img {
+  width: 100px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 150px;
+}
+
+.skeleton {
+  opacity: 0.7;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeleton-text {
+  width: 100%;
+  height: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-text:last-child {
+  width: 40%;
+  margin-bottom: 0;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
