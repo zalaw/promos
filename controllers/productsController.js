@@ -144,7 +144,7 @@ const run = async (query, coords) => {
     executablePath: chromium.path,
     // defaultViewport: null,
     // args: ["--start-maximized"],
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    args: ["--no-sandbox"],
   });
 
   console.log(chromium.path);
@@ -174,7 +174,7 @@ const getProducts = async (req, res) => {
       executablePath: chromium.path,
       // defaultViewport: null,
       // args: ["--start-maximized"],
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: ["--no-sandbox"],
     });
 
     const page = await browser.newPage();
