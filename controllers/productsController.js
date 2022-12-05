@@ -139,7 +139,7 @@ const scrapePenny = async (browser, query, coords) => {
 
 const run = async (query, coords) => {
   const browser = await puppeteer.launch({
-    // headless: true,
+    headless: false,
     // executablePath: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
     executablePath: chromium.path,
     // defaultViewport: null,
@@ -149,7 +149,9 @@ const run = async (query, coords) => {
 
   console.log(chromium.path);
 
-  const data = await Promise.all([scrapeKaufland(browser, query, coords), scrapePenny(browser, query, coords)]);
+  // const data = await Promise.all([scrapeKaufland(browser, query, coords), scrapePenny(browser, query, coords)]);
+
+  const data = { babaje: true, petrutian: "da frate" };
 
   await browser.close();
 
@@ -166,7 +168,24 @@ const getProducts = async (req, res) => {
 
     coords = { latitude: 1, longitude: 1 };
 
-    const data = await run(query, coords);
+    const browser = await puppeteer.launch({
+      headless: false,
+      // executablePath: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      executablePath: chromium.path,
+      // defaultViewport: null,
+      // args: ["--start-maximized"],
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+
+    const page = await browser.newPage();
+
+    await page.goto("https://www.google.com");
+
+    // const data = await run(query, coords);
+
+    const data = { babaje: true, petrutian: "da frate" };
+
+    await browser.close();
 
     res.send(data);
   } catch (err) {
