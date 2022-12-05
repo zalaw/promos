@@ -27,12 +27,14 @@ const clickOnButtonEval = async (page, selector, waitForHidden = false, timeout 
   });
 };
 
-const scrapeKaufland = async (browser, query, coords) => {
+const scrapeKaufland = async (browser, query) => {
   const page = await browser.newPage();
 
   await page.goto(`https://www.kaufland.ro/cautarii.specialOfferSearch=1.html?q=${query.replace(" ", "+")}`, {
     waitUntil: "networkidle2",
   });
+
+  await delay(3000);
 
   await clickOnButtonEval(
     page,
@@ -79,12 +81,14 @@ const scrapeKaufland = async (browser, query, coords) => {
   });
 };
 
-const scrapePenny = async (browser, query, coords) => {
+const scrapePenny = async (browser, query) => {
   const page = await browser.newPage();
 
   await page.goto(`https://www.penny.ro/search/${escape(query)}?tab=products`, {
     waitUntil: "networkidle2",
   });
+
+  await delay(3000);
 
   await clickOnButtonEval(page, "button#onetrust-accept-btn-handler", true);
 
@@ -137,21 +141,15 @@ const scrapePenny = async (browser, query, coords) => {
   });
 };
 
-const run = async (query, coords) => {
+const run = async query => {
   const browser = await puppeteer.launch({
-    headless: false,
-    // executablePath: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
     executablePath: chromium.path,
-    // defaultViewport: null,
-    // args: ["--start-maximized"],
     args: ["--no-sandbox"],
   });
 
   console.log(chromium.path);
 
-  // const data = await Promise.all([scrapeKaufland(browser, query, coords), scrapePenny(browser, query, coords)]);
-
-  const data = { babaje: true, petrutian: "da frate" };
+  const data = await Promise.all([scrapeKaufland(browser, query), scrapePenny(browser, query)]);
 
   await browser.close();
 
@@ -161,32 +159,7 @@ const run = async (query, coords) => {
 const getProducts = async (req, res) => {
   try {
     const query = req.query.query.replace(/\b\s\s+\b/g, " ").trim();
-    // const publicIP = req.header("x-forwarded-for") || "82.77.127.147";
-    // const [latitude, longitude] = geoip.lookup(publicIP)?.ll;
-    // const coords = { latitude, longitude };
-    // const coords = { latitude: 45.6565239, longitude: 25.5814392 };
-
-    coords = { latitude: 1, longitude: 1 };
-
-    console.log(chromium.path);
-
-    const browser = await puppeteer.launch({
-      // executablePath: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
-      executablePath: chromium.path,
-      // defaultViewport: null,
-      // args: ["--start-maximized"],
-      args: ["--no-sandbox"],
-    });
-
-    const page = await browser.newPage();
-
-    await page.goto("https://www.google.com");
-
-    // const data = await run(query, coords);
-
-    const data = { babaje: true, petrutian: "da frate" };
-
-    await browser.close();
+    const data = await run(query);
 
     res.send(data);
   } catch (err) {
