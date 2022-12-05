@@ -139,10 +139,10 @@ const scrapePenny = async (browser, query, coords) => {
 const run = async (query, coords) => {
   const browser = await puppeteer.launch({
     // headless: true,
-    executablePath: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    // executablePath: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
     // defaultViewport: null,
     // args: ["--start-maximized"],
-    args: ["--no-sandbox"],
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
   const data = await Promise.all([scrapeKaufland(browser, query, coords), scrapePenny(browser, query, coords)]);
