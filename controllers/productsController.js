@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+const chromium = require("chromium");
 // const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 
 // puppeteer.use(StealthPlugin());
@@ -140,10 +141,13 @@ const run = async (query, coords) => {
   const browser = await puppeteer.launch({
     // headless: true,
     // executablePath: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    executablePath: chromium.path,
     // defaultViewport: null,
     // args: ["--start-maximized"],
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
+
+  console.log(chromium.path);
 
   const data = await Promise.all([scrapeKaufland(browser, query, coords), scrapePenny(browser, query, coords)]);
 
