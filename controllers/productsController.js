@@ -36,49 +36,51 @@ const scrapeKaufland = async (browser, query) => {
 
   await delay(3000);
 
-  await clickOnButtonEval(
-    page,
-    ".cookie-alert-extended-button[data-controller='cookie-alert/extended/button/accept']",
-    true
-  );
+  await page.screenshot({ path: "./public/build/kaufland.jpg", fullPage: true });
 
-  return await page.evaluate(() => {
-    const cards = [...document.querySelectorAll(".g-col.t-search-result__list-item")];
+  // await clickOnButtonEval(
+  //   page,
+  //   ".cookie-alert-extended-button[data-controller='cookie-alert/extended/button/accept']",
+  //   true
+  // );
 
-    const items = cards.map(card => {
-      const link = card.querySelector(".m-offer-tile__link.u-button--hover-children")?.href;
-      // const img = card.querySelector(".a-image-responsive")?.src;
-      const img = /src=\"(.*?)\"/.exec(card.querySelector(".a-image-responsive")?.outerHTML)[1];
-      const hasCard = card.querySelector(".m-offer-tile__promo-wrapper") !== null;
-      const name = `${card.querySelector(".m-offer-tile__subtitle")?.textContent.replace(/(\t|\n)/g, "") || ""} ${
-        card.querySelector(".m-offer-tile__title")?.textContent.replace(/(\t|\n)/g, "") || ""
-      }`;
-      const extra = card.querySelector(".m-offer-tile__quantity")?.textContent.replace(/(\t|\n)/g, "");
-      const oldPrice = card
-        .querySelector(".a-pricetag__old-price.a-pricetag__line-through")
-        ?.textContent.replace(",", ".")
-        .match(/\d+(.\d+)?/g);
-      const newPrice = card
-        .querySelector(".a-pricetag__price")
-        ?.textContent.replace(",", ".")
-        .match(/\d+(.\d+)?/g);
+  // return await page.evaluate(() => {
+  //   const cards = [...document.querySelectorAll(".g-col.t-search-result__list-item")];
 
-      return {
-        link: link || null,
-        img: img || null,
-        hasCard: hasCard,
-        name: name || null,
-        extra: extra || null,
-        oldPrice: Number(oldPrice) || null,
-        newPrice: Number(newPrice) || null,
-      };
-    });
+  //   const items = cards.map(card => {
+  //     const link = card.querySelector(".m-offer-tile__link.u-button--hover-children")?.href;
+  //     // const img = card.querySelector(".a-image-responsive")?.src;
+  //     const img = /src=\"(.*?)\"/.exec(card.querySelector(".a-image-responsive")?.outerHTML)[1];
+  //     const hasCard = card.querySelector(".m-offer-tile__promo-wrapper") !== null;
+  //     const name = `${card.querySelector(".m-offer-tile__subtitle")?.textContent.replace(/(\t|\n)/g, "") || ""} ${
+  //       card.querySelector(".m-offer-tile__title")?.textContent.replace(/(\t|\n)/g, "") || ""
+  //     }`;
+  //     const extra = card.querySelector(".m-offer-tile__quantity")?.textContent.replace(/(\t|\n)/g, "");
+  //     const oldPrice = card
+  //       .querySelector(".a-pricetag__old-price.a-pricetag__line-through")
+  //       ?.textContent.replace(",", ".")
+  //       .match(/\d+(.\d+)?/g);
+  //     const newPrice = card
+  //       .querySelector(".a-pricetag__price")
+  //       ?.textContent.replace(",", ".")
+  //       .match(/\d+(.\d+)?/g);
 
-    return {
-      store: "Kaufland",
-      items: items,
-    };
-  });
+  //     return {
+  //       link: link || null,
+  //       img: img || null,
+  //       hasCard: hasCard,
+  //       name: name || null,
+  //       extra: extra || null,
+  //       oldPrice: Number(oldPrice) || null,
+  //       newPrice: Number(newPrice) || null,
+  //     };
+  //   });
+
+  //   return {
+  //     store: "Kaufland",
+  //     items: items,
+  //   };
+  // });
 };
 
 const scrapePenny = async (browser, query) => {
@@ -90,55 +92,57 @@ const scrapePenny = async (browser, query) => {
 
   await delay(3000);
 
-  await clickOnButtonEval(page, "button#onetrust-accept-btn-handler", true);
+  await page.screenshot({ path: "./public/build/penny.jpg", fullPage: true });
 
-  return await page.evaluate(() => {
-    const cards = [...document.querySelectorAll(".ws-product-item-base.ws-product-tile.ws-card")];
+  // await clickOnButtonEval(page, "button#onetrust-accept-btn-handler", true);
 
-    const items = cards.map(card => {
-      const link = card.id.replace(/-\d+$/g, "");
-      const img = card.querySelector(
-        ".mx-auto.ws-product-image.ws-product-image--loaded.ws-lazy-loaded-image--loaded"
-      )?.src;
-      const hasCard = card.querySelector(".ws-product-price-loyalty-icon.mb-1") !== null;
-      const name = `${card
-        .querySelector(".line-clamp-3")
-        ?.textContent.replace(/(\t|\n)/g, "")
-        .trim()}`;
-      const extra = card
-        .querySelector(".ws-product-information li.body-2")
-        ?.textContent.replace(/(\t|\n)/g, "")
-        .trim();
-      const oldPrice =
-        card
-          .querySelector(".ws-product-price-strike.body-2")
-          ?.textContent.replace(",", ".")
-          .match(/\d+(.\d+)?/g) ||
-        card
-          .querySelector(".ws-product-price-type__value.h6")
-          ?.textContent.replace(",", ".")
-          .match(/\d+(.\d+)?/g);
-      const newPrice = card
-        .querySelector(".ws-product-price-type__value.subtitle-1")
-        ?.textContent.replace(",", ".")
-        .match(/\d+(.\d+)?/g);
+  // return await page.evaluate(() => {
+  //   const cards = [...document.querySelectorAll(".ws-product-item-base.ws-product-tile.ws-card")];
 
-      return {
-        link: `https://www.penny.ro/products/${link}` || null,
-        img: img || null,
-        hasCard: hasCard,
-        name: name || null,
-        extra: extra || null,
-        oldPrice: Number(oldPrice) || null,
-        newPrice: Number(newPrice) || null,
-      };
-    });
+  //   const items = cards.map(card => {
+  //     const link = card.id.replace(/-\d+$/g, "");
+  //     const img = card.querySelector(
+  //       ".mx-auto.ws-product-image.ws-product-image--loaded.ws-lazy-loaded-image--loaded"
+  //     )?.src;
+  //     const hasCard = card.querySelector(".ws-product-price-loyalty-icon.mb-1") !== null;
+  //     const name = `${card
+  //       .querySelector(".line-clamp-3")
+  //       ?.textContent.replace(/(\t|\n)/g, "")
+  //       .trim()}`;
+  //     const extra = card
+  //       .querySelector(".ws-product-information li.body-2")
+  //       ?.textContent.replace(/(\t|\n)/g, "")
+  //       .trim();
+  //     const oldPrice =
+  //       card
+  //         .querySelector(".ws-product-price-strike.body-2")
+  //         ?.textContent.replace(",", ".")
+  //         .match(/\d+(.\d+)?/g) ||
+  //       card
+  //         .querySelector(".ws-product-price-type__value.h6")
+  //         ?.textContent.replace(",", ".")
+  //         .match(/\d+(.\d+)?/g);
+  //     const newPrice = card
+  //       .querySelector(".ws-product-price-type__value.subtitle-1")
+  //       ?.textContent.replace(",", ".")
+  //       .match(/\d+(.\d+)?/g);
 
-    return {
-      store: "Penny",
-      items: items,
-    };
-  });
+  //     return {
+  //       link: `https://www.penny.ro/products/${link}` || null,
+  //       img: img || null,
+  //       hasCard: hasCard,
+  //       name: name || null,
+  //       extra: extra || null,
+  //       oldPrice: Number(oldPrice) || null,
+  //       newPrice: Number(newPrice) || null,
+  //     };
+  //   });
+
+  //   return {
+  //     store: "Penny",
+  //     items: items,
+  //   };
+  // });
 };
 
 const run = async query => {
@@ -149,6 +153,7 @@ const run = async query => {
 
   console.log(chromium.path);
 
+  // const data = await Promise.all([scrapeKaufland(browser, query), scrapePenny(browser, query)]);
   const data = await Promise.all([scrapeKaufland(browser, query), scrapePenny(browser, query)]);
 
   await browser.close();
