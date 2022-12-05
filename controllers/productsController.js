@@ -171,7 +171,6 @@ const getProducts = async (req, res) => {
     console.log(chromium.path);
 
     const browser = await puppeteer.launch({
-      headless: false,
       // executablePath: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
       executablePath: chromium.path,
       // defaultViewport: null,
